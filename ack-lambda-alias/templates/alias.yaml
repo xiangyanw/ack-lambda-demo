@@ -3,6 +3,9 @@ kind: Alias
 metadata:
   annotations:
     services.k8s.aws/region: {{ .Values.region }}
+    {{- with .Values.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
   name: {{ include "ack-lambda-alias.fullname" . }}
   labels:
     {{- include "ack-lambda-alias.labels" . | nindent 4 }}
@@ -12,12 +15,15 @@ spec:
     from: 
       name: {{ .Values.functionName }}
       namespace: {{ .Release.Namespace }}
-  {{ $version := (lookup "lambda.services.k8s.aws/v1alpha1" "Version" .Release.Namespace .Values.functionVersionName) }}
+  {{- $versionCM := (lookup "v1" "ConfigMap" .Release.Namespace .Values.functionVersionCM) }}
+  {{- if $versionCM }}
+  {{- $versionName := index $versionCM.data "versionName" }}
+  {{- if $versionName }}
+  {{- $version := (lookup "lambda.services.k8s.aws/v1alpha1" "Version" .Release.Namespace $versionName) }}
   {{- if $version }}
   functionVersion: {{ index $version.status "version" }}
-  {{- else }}
-  # Use an invalid version number if fails to retrieve
-  functionVersion: "-1"
+  {{- end }}
+  {{- end }}
   {{- end }}
   # {{- if not .Values.routingConfig.enabled }}
   # routingConfig:

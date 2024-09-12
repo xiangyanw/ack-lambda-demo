@@ -9,7 +9,10 @@ region: ap-northeast-1
 
 aliaName: prod
 functionName: lambda-oci-ack
-functionVersionName: lambda-oci-ack-version-2
+functionVersionCM: ack-lambda-version-cm
 
 routingConfig:
   enabled: false
+  
+annotations:
+  argocd.argoproj.io/sync-wave: "3"

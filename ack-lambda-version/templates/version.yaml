@@ -6,7 +6,10 @@ metadata:
     {{- with .Values.annotations }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
-  name: {{ include "ack-lambda-version.fullname" . }}-{{ randAlphaNum 5 | lower }}
+  {{ $randomStr := (randAlphaNum 5 | lower) }}
+  {{- if $randomStr }}
+  name: {{ include "ack-lambda-version.fullname" . }}-{{ $randomStr }}
+  {{- end }}
   labels:
     {{- include "ack-lambda-version.labels" . | nindent 4 }}
 spec:
@@ -16,4 +19,13 @@ spec:
       namespace: {{ .Release.Namespace }}
   {{- if .Values.revisionID }}
   revisionID: {{ .Values.revisionID }}
+  {{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ack-lambda-version.fullname" . }}-cm
+data:
+  {{- if $randomStr }}
+  versionName: {{ include "ack-lambda-version.fullname" . }}-{{ $randomStr }}
   {{- end }}
