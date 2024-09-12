@@ -9,3 +9,6 @@ region: ap-northeast-1
 
 functionName: lambda-oci-ack
 revisionID: ""
+
+annotations:
+  argocd.argoproj.io/sync-wave: "2"

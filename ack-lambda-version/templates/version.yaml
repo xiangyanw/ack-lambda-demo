@@ -3,7 +3,10 @@ kind: Version
 metadata:
   annotations:
     services.k8s.aws/region: {{ .Values.region }}
-  name: {{ include "ack-lambda-version.fullname" . }}
+    {{- with .Values.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  name: {{ include "ack-lambda-version.fullname" . }}-{{ randAlphaNum 5 | lower }}
   labels:
     {{- include "ack-lambda-version.labels" . | nindent 4 }}
 spec:
