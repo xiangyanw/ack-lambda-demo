@@ -24,6 +24,10 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  annotations:
+    {{- with .Values.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
   name: {{ include "ack-lambda-version.fullname" . }}-cm
 data:
   {{- if $randomStr }}
