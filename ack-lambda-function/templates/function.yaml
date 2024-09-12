@@ -15,5 +15,5 @@ spec:
   description: {{ .Values.description }}
   name: {{ include "ack-lambda-function.fullname" . }}
   packageType: Image
-  publish: true
+  publish: false
   role: {{ .Values.iamRole }}

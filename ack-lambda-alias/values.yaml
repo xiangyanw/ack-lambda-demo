@@ -3,12 +3,12 @@
 # Declare variables to be passed into your templates.
 
 nameOverride: ""
-fullnameOverride: "lambda-oci-ack"
+fullnameOverride: "ack-lambda-alia"
 
 region: ap-northeast-1
 
 aliaName: prod
-functionName: lambda-oci-ack
+functionName: ack-lambda-function
 functionVersionCM: ack-lambda-version-cm
 
 routingConfig:

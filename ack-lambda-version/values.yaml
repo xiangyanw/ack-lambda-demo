@@ -7,7 +7,7 @@ fullnameOverride: "ack-lambda-version"
 
 region: ap-northeast-1
 
-functionName: lambda-oci-ack
+functionName: ack-lambda-function
 revisionID: ""
 
 annotations:
