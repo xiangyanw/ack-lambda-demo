@@ -3,6 +3,9 @@ kind: Function
 metadata:
   annotations:
     services.k8s.aws/region: {{ .Values.region }}
+    {{- with .Values.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
   name: {{ include "ack-lambda-function.fullname" . }}
   labels:
     {{- include "ack-lambda-function.labels" . | nindent 4 }}
