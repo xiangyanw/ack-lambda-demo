@@ -1,0 +1,11 @@
+# Default values for ack-lambda-version.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: "ack-lambda-version"
+
+region: ap-northeast-1
+
+functionName: lambda-oci-ack
+revisionID: ""

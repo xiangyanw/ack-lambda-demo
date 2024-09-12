@@ -1,0 +1,15 @@
+apiVersion: lambda.services.k8s.aws/v1alpha1
+kind: Function
+metadata:
+  annotations:
+    services.k8s.aws/region: {{ .Values.region }}
+  name: {{ include "ack-lambda-function.fullname" . }}
+  labels:
+    {{- include "ack-lambda-function.labels" . | nindent 4 }}
+spec:
+  code:
+    imageURI: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
+  description: {{ .Values.description }}
+  name: {{ include "ack-lambda-function.fullname" . }}
+  packageType: Image
+  role: {{ .Values.iamRole }}

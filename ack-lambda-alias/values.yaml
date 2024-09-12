@@ -1,0 +1,15 @@
+# Default values for ack-lambda-alias.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: "lambda-oci-ack"
+
+region: ap-northeast-1
+
+aliaName: prod
+functionName: lambda-oci-ack
+functionVersionName: lambda-oci-ack-version-2
+
+routingConfig:
+  enabled: false

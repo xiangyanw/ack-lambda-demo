@@ -1,0 +1,16 @@
+# Default values for ack-lambda-function.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: "ack-lambda-function"
+
+region: ap-northeast-1
+
+description: "This is an ACK Lambda Function CR"
+
+image:
+  repo: account-id.dkr.ecr.ap-northeast-1.amazonaws.com/official/nginx
+  tag: 1.23.1
+  
+iamRole: ""

@@ -1,0 +1,3 @@
+1. Get the lambda version by running these commands:
+export VERSIION_NAME=$(kubectl get version --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "ack-lambda-version.name" . }}" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace {{ .Release.Namespace }} get version $VERSIION_NAME

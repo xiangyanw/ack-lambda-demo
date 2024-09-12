@@ -1,0 +1,3 @@
+1. Get the alia by running these commands:
+export ALIA_NAME=$(kubectl get alias --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "ack-lambda-alias.name" . }}" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace {{ .Release.Namespace }} get alias $ALIA_NAME

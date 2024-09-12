@@ -1,0 +1,16 @@
+apiVersion: lambda.services.k8s.aws/v1alpha1
+kind: Version
+metadata:
+  annotations:
+    services.k8s.aws/region: {{ .Values.region }}
+  name: {{ include "ack-lambda-version.fullname" . }}
+  labels:
+    {{- include "ack-lambda-version.labels" . | nindent 4 }}
+spec:
+  functionRef: 
+    from: 
+      name: {{ .Values.functionName }}
+      namespace: {{ .Release.Namespace }}
+  {{- if .Values.revisionID }}
+  revisionID: {{ .Values.revisionID }}
+  {{- end }}

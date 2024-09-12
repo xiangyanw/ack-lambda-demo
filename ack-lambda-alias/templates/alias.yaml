@@ -1,0 +1,28 @@
+apiVersion: lambda.services.k8s.aws/v1alpha1
+kind: Alias
+metadata:
+  annotations:
+    services.k8s.aws/region: {{ .Values.region }}
+  name: {{ include "ack-lambda-alias.fullname" . }}
+  labels:
+    {{- include "ack-lambda-alias.labels" . | nindent 4 }}
+spec:
+  name: {{ .Values.aliaName | default "prod" }}
+  functionRef: 
+    from: 
+      name: {{ .Values.functionName }}
+      namespace: {{ .Release.Namespace }}
+  {{ $version := (lookup "lambda.services.k8s.aws/v1alpha1" "Version" .Release.Namespace .Values.functionVersionName) }}
+  {{- if $version }}
+  functionVersion: {{ index $version.status "version" }}
+  {{- else }}
+  # Use an invalid version number if fails to retrieve
+  functionVersion: "-1"
+  {{- end }}
+  # {{- if not .Values.routingConfig.enabled }}
+  # routingConfig:
+  #   additionalVersionWeights: 
+  #   3: 0.5
+  # {{- end }}
+
+  
